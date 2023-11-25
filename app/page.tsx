@@ -1,62 +1,26 @@
-const people = [
-  {
-
-      name: 'John',
-      age: 25,
-      hobbies: ['reading', 'swimming'],
-      gender: 'male',
-      profession: 'teacher'
+const recordCollection = {
+  2548: {
+    albumTitle: 'Slippery When Wet',
+    artist: 'Bon Jovi',
+    tracks: ['Let It Rock', 'You Give Love a Bad Name']
   },
-  {
-      name: 'Jane',
-      age: 30,
-      hobbies: ['painting', 'dancing'],
-      gender: 'female',
-      profession: 'engineer'
+  2468: {
+    albumTitle: '1999',
+    artist: 'Prince',
+    tracks: ['1999', 'Little Red Corvette']
   },
-  {
-      name: 'Bob',
-      age: 40,
-      hobbies: ['hiking', 'cooking'],
-      gender: 'male',
-      profession: 'doctor'
+  1245: {
+    artist: 'Robert Palmer',
+    tracks: []
   },
-  {
-      name: 'Alice',
-      age: 20,
-      hobbies: ['singing', 'playing guitar'],
-      gender: 'female',
-      profession: 'student'
-  },
-  {
-      name: 'Mike',
-      age: 35,
-      hobbies: ['running', 'playing basketball'],
-      gender: 'male',
-      profession: 'programmer'
+  5439: {
+    albumTitle: 'ABBA Gold'
   }
-];
+};
 
 export default function Home() {
 
-people.filter((person) => {
-  if(person.age < 26)
-  return console.log(person)
-})
-
-people.filter((person) => {
-  if(person.profession != 'programmer' && person.profession != 'student')
-  return console.log(person)
-})
-
-people.filter((person) => {
-  if(person.name.length <= 3 )
-  return {
-    name : console.log(person),
-    test : console.log(person.name.length)
-
-}
-})
+console.log(recordCollection)
 
   
 
