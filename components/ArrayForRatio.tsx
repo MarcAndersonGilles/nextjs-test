@@ -21,7 +21,8 @@ const arrayMonths = [
 function ArrayForRatio() {
 
     const [position, setPosition] = useState(0); // Position initiale
-    // const [isMouseOnNav, setisMouseOnNav] = useState(false);
+    const [isMouseOnNav, setisMouseOnNav] = useState(false);
+    const [scrollSpeedRatio, setScrollSpeedRatio] = useState(0);
     // const [disableScroll, setDisableScroll] = useState(false);
     // const [activeBtn, setActiveBtn] = useState('month');
 
@@ -58,6 +59,7 @@ function ArrayForRatio() {
                 if (containerWidth !== undefined) {
                     const maxPosition = containerWidth - (e.target as HTMLDivElement).offsetWidth;
                     const scrollRatio = newPosition / maxPosition;
+                    setScrollSpeedRatio(scrollRatio);
                     chartContainer.scrollLeft =
                         scrollRatio * (chartContainer.scrollWidth - chartContainer.clientWidth);
                 }
@@ -71,6 +73,37 @@ function ArrayForRatio() {
     
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
+    };
+
+    const navMouseDownDrag = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setisMouseOnNav(true);
+        const container = e.currentTarget;
+        const containerScrollPosition = container.scrollLeft;
+        let startX = e.clientX;
+        let cumulativeX = 0;
+
+
+        const mouseMove = (e: MouseEvent) => {
+            const deltaX = e.clientX - startX;
+            container.scrollLeft = containerScrollPosition - deltaX + cumulativeX;
+            cumulativeX -= deltaX;
+            startX = e.clientX;
+            console.log(container.scrollLeft)
+            if(chartContainerRef.current)
+            setPosition(container.scrollLeft);
+
+        };
+
+        const mouseUp = () => {
+            setisMouseOnNav(false);
+            document.removeEventListener("mousemove", mouseMove);
+            document.removeEventListener("mouseup", mouseUp);
+        };
+
+        document.addEventListener("mousemove", mouseMove);
+        document.addEventListener("mouseup", mouseUp);
     };
 
   return (
@@ -87,10 +120,6 @@ function ArrayForRatio() {
         <div className='flex  justify-between w-full flex-wrap gap-4'>
             <div className='flex items-center gap-3 relative'>
                 <div className='flex relative'>
-
-                   
-
-                   
 
                 </div>
                
@@ -121,7 +150,7 @@ function ArrayForRatio() {
         {/*Graphic chart */}
         <div className='flex  w-full min-h-[180px]'>
             <div ref={chartContainerRef} className='chart-container  flex  items-end text-black gap-1 overflow-x-scroll relative  w-full '
-            // onMouseDown={(e) => navMouseDownDrag(e)}
+            onMouseDown={(e) => navMouseDownDrag(e)}
             >
 
 
