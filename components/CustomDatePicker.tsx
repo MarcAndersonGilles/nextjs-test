@@ -36,6 +36,7 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
     const currentMonthDays = [];
     const nextMonthDays = [];
 
+    console.log(firstDay.getDay())
     // Fill the array with the last days of the previous month
     for (let i = firstDay.getDay() - 1; i >= 0; i--) {
         const prevMonthDate = new Date(today.getFullYear(), today.getMonth(), -i);
