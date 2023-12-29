@@ -8,23 +8,39 @@ const getDaysOfMonth = new Date(date.getFullYear(), date.getMonth() + 1 ,0)  // 
 const getDaysLastMonth = new Date(date.getFullYear(), date.getMonth(), 0)  // 0 is the last day of the month
 const getDaysNextMonth = new Date(date.getFullYear(), date.getMonth() + 2, 0)  // 0 is the last day of the month
 
-const getFirstDayOfMonth = new Date(date.getFullYear(), date.getMonth() , 1)  
+const getFirstDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1  , 1)  
 
 console.log(getFirstDayOfMonth)
 console.log(getFirstDayOfMonth.getDay()) // console
+console.log(getDaysLastMonth.getDate())
+console.log(getFirstDayOfMonth.getDay())
 
 
-// for (let i = getFirstDayOfMonth.getDay(); i > 0; i--){
+    for (let i = getDaysLastMonth.getDate() - getFirstDayOfMonth.getDay()  ; i < getDaysLastMonth.getDate(); i++){
+        currentMonthArray.push(i + 1)
 
-//     currentMonthArray.push(getDaysOfMonth.getDate() - i )
-    
-    
-// }
-// console.log(currentMonthArray)
-
+}
 
 
 
+console.log(currentMonthArray)
+
+
+
+
+// function genererArray(nombre:number) {
+//     const resultat = [];
+//     for (let i = nombre - 4; i <= nombre; i++) {
+//       if (i >= 1) {
+//         resultat.push(i);
+//       }
+//     }
+//     return resultat;
+//   }
+  
+//   const nombre = 31;
+//   const monArray = genererArray(nombre);
+//   console.log(monArray);
 
 
 // const currentArrayMonth =[
