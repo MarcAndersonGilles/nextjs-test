@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import ArrayForRatio from '@/components/ArrayForRatio'
 import DatePickerMessage from '@/components/CustomDatePicker';
+import CustomDatePicker2 from '@/components/CustomDatePicker2';
 
 
 
@@ -14,7 +15,8 @@ export default function Home() {
      
         {/* <ArrayForRatio /> */}
         <div className='max-w-[260px] text-black bg-white'>
-        <DatePickerMessage canSelectBeforeDate={canSelectBeforeDate} /> 
+        {/* <DatePickerMessage canSelectBeforeDate={canSelectBeforeDate} />  */}
+        <CustomDatePicker2 canSelectBeforeDate={canSelectBeforeDate} />
         </div>
         
     </main>
