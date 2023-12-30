@@ -8,7 +8,7 @@ import CustomDatePicker2 from '@/components/CustomDatePicker2';
 
 
 export default function Home() {
-  const [canSelectBeforeDate, setCanSelectBeforeDate] = useState(true);
+  const [canSelectBeforeDate, setCanSelectBeforeDate] = useState(false);
 
   return (
     <main className="flex  min-h-screen flex-col  p-24 bg-gray-400">

@@ -208,22 +208,19 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
                                 const today = new Date()
                                 const isFromPreviousMonth = index < previousMonthArray.length;
                                 const isFromNextMonth = index >= previousMonthArray.length + currentMonthArray.length;
-                                const disabledPreviousDates = canSelectBeforeDate && index < daysToShow.length && day < today.getDate() ? "bg-black" : "bg-white"
+                                
 
                                 const valueItem = isFromPreviousMonth ? new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, day).toISOString() :
                                     isFromNextMonth ? new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, day).toISOString() :
                                         new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toISOString()
 
-                                        const disabledButton = valueItem < new Date().toISOString() ? "bg-black" : "bg-white"
+                                        const disabledButton = !canSelectBeforeDate && valueItem < new Date(today.getFullYear(),today.getMonth(),today.getDate() ).toISOString() ? "bg-black bg-opacity-10 " : ""
                                 return (
                                     <div
                                         key={index}
-                                        className={`${day === today.getDate() &&
-                                            currentDate.getMonth() === today.getMonth() &&
-                                            currentDate.getFullYear() === today.getFullYear()
-                                            && !isFromPreviousMonth && !isFromNextMonth
+                                        className={`${ valueItem === new Date(today.getFullYear(),today.getMonth(),today.getDate() ).toISOString()
                                             ? 'font-bold text-figma-neutre-200 bg-[#ECFDF5] border border-primary rounded-md'
-                                            : 'hover:bg-[#ECFDF5] hover:border-primary hover:rounded-md hover:font-bold hover:text-figma-neutre-200 hover:border'
+                                            : 'hover:bg-[#ECFDF5] hover:border-primary  hover:rounded-md hover:font-bold hover:text-figma-neutre-200 hover:border'
                                             } text-center w-[30px] h-[30px] flex items-center justify-center ${disabledButton}   ${index < previousMonthArray.length ||
                                                 index >= previousMonthArray.length + currentMonthArray.length
                                                 ? 'text-gray-500'
@@ -235,7 +232,7 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
                                             type='button'
                                             className=''
                                             value={valueItem}
-                                                disabled={valueItem < new Date().toISOString()}
+                                                disabled={ !canSelectBeforeDate && valueItem < new Date(today.getFullYear(),today.getMonth(),today.getDate() ).toISOString()}
                                             onClick={(e) => {
                                                 const isFromPrevious = isFromPreviousMonth && day !== null;
                                                 const isFromNext = isFromNextMonth && day !== null;
