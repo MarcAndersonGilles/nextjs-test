@@ -3,9 +3,10 @@ import IconChevronDown from './icons/IconChevronDown';
 
 type datePickerProps = {
     canSelectBeforeDate: boolean;
+    canSelectAfterDate: boolean;
 
 }
-function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
+function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePickerProps) {
     const [openDatePickerStart, setOpenDatePickerStart] = useState(false)
     const [selectedDate, setSelectedDate] = useState('');
 
@@ -51,8 +52,6 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
     }
 
 
-
-
     const daysToShow = [...previousMonthArray, ...currentMonthArray, ...nextMonthArray];
 
 
@@ -94,9 +93,7 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
     };
 
     const handleDateClick = (day: number, isFromPreviousMonth: boolean, isFromNextMonth: boolean) => {
-        // if (!canSelectBeforeDate && isFromPreviousMonth) {
-        //     return; // Bloquer le clic si canSelectBeforeDate est false et la date appartient au mois précédent
-        // }
+      
         let selectedMonth = currentDate.getMonth();
 
         if (isFromPreviousMonth) {
@@ -119,7 +116,6 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
     };
 
 
-    console.log(canSelectBeforeDate)
     return (
         <div className='flex flex-col gap-2 relative'>
 
@@ -208,20 +204,21 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
                                 const today = new Date()
                                 const isFromPreviousMonth = index < previousMonthArray.length;
                                 const isFromNextMonth = index >= previousMonthArray.length + currentMonthArray.length;
-                                
+
 
                                 const valueItem = isFromPreviousMonth ? new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, day).toISOString() :
                                     isFromNextMonth ? new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, day).toISOString() :
                                         new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toISOString()
 
-                                        const disabledButton = !canSelectBeforeDate && valueItem < new Date(today.getFullYear(),today.getMonth(),today.getDate() ).toISOString() ? "bg-black bg-opacity-10 " : ""
+                                const disabledButtonsPrevious = !canSelectBeforeDate && valueItem < new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString() ? "bg-black bg-opacity-10 " : "";
+                                const disabledButtonsNext = !canSelectAfterDate && valueItem > new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString() ? "bg-black bg-opacity-10 " : "";
                                 return (
                                     <div
                                         key={index}
-                                        className={`${ valueItem === new Date(today.getFullYear(),today.getMonth(),today.getDate() ).toISOString()
+                                        className={`${valueItem === new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString()
                                             ? 'font-bold text-figma-neutre-200 bg-[#ECFDF5] border border-primary rounded-md'
                                             : 'hover:bg-[#ECFDF5] hover:border-primary  hover:rounded-md hover:font-bold hover:text-figma-neutre-200 hover:border'
-                                            } text-center w-[30px] h-[30px] flex items-center justify-center ${disabledButton}   ${index < previousMonthArray.length ||
+                                            } text-center w-[30px] h-[30px] flex items-center justify-center ${disabledButtonsPrevious} ${disabledButtonsNext}   ${index < previousMonthArray.length ||
                                                 index >= previousMonthArray.length + currentMonthArray.length
                                                 ? 'text-gray-500'
                                                 : 'text-black'
@@ -232,14 +229,15 @@ function DatePickerMessage({ canSelectBeforeDate }: datePickerProps) {
                                             type='button'
                                             className=''
                                             value={valueItem}
-                                                disabled={ !canSelectBeforeDate && valueItem < new Date(today.getFullYear(),today.getMonth(),today.getDate() ).toISOString()}
-                                            onClick={(e) => {
+                                            disabled={!canSelectBeforeDate && valueItem < new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString() ||
+                                                !canSelectAfterDate && valueItem > new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString()}
+                                            onClick={() => {
                                                 const isFromPrevious = isFromPreviousMonth && day !== null;
                                                 const isFromNext = isFromNextMonth && day !== null;
 
                                                 handleDateClick(day, isFromPrevious, isFromNext);
                                                 setOpenDatePickerStart(false);
-                                                console.log(e.currentTarget.value)
+                                           
                                             }}
                                         >
                                             {day !== null ? day : ''}
