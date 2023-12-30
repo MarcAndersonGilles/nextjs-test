@@ -93,7 +93,7 @@ function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePick
     };
 
     const handleDateClick = (day: number, isFromPreviousMonth: boolean, isFromNextMonth: boolean) => {
-      
+
         let selectedMonth = currentDate.getMonth();
 
         if (isFromPreviousMonth) {
@@ -106,7 +106,7 @@ function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePick
 
 
 
-        const formattedDate = selectedDateFormat.toLocaleString('fr', {
+        const formattedDate = selectedDateFormat.toLocaleString('fr-FR', {
             weekday: 'long',
             day: 'numeric',
             month: 'long',
@@ -114,6 +114,10 @@ function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePick
         });
         setSelectedDate(formattedDate);
     };
+
+    const capitalizeFirstLetter = (string: string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1)
+    }
 
 
     return (
@@ -161,9 +165,9 @@ function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePick
                     <div >
                         <div onClick={toggleYearDropdown}>
                             {showYearDropdown ? "" : (
-                                <h1>{`${currentDate.toLocaleString('default', {
+                                <h1>{`${capitalizeFirstLetter(currentDate.toLocaleString('fr-FR', {
                                     month: 'long',
-                                })}, ${currentDate.getFullYear()}`}</h1>
+                                }))}, ${currentDate.getFullYear()}`}</h1>
                             )}
 
                         </div>
@@ -237,7 +241,7 @@ function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePick
 
                                                 handleDateClick(day, isFromPrevious, isFromNext);
                                                 setOpenDatePickerStart(false);
-                                           
+
                                             }}
                                         >
                                             {day !== null ? day : ''}
