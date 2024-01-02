@@ -12,7 +12,9 @@ for (let hour = 0; hour < 24; hour++) {
 }
 
 const CustomHourPicker = () => {
-
+    const today = new Date()
+    const getcurrentHour = new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours())
+  
     const [isOpen, setIsOpen] = useState(false)
     const [selectedHour, setSelectedHour] = useState('');
 
