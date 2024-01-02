@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import CustomDatePicker from '@/components/DatePicker/CustomDatePicker';
+import CustomHourPicker from '@/components/DatePicker/CustomHourPicker';
 
 
 export default function Home() {
@@ -13,6 +14,10 @@ export default function Home() {
         {/* <ArrayForRatio /> */}
         <div className='max-w-[260px]'>
         <CustomDatePicker canSelectBeforeDate={canSelectBeforeDate} canSelectAfterDate={canSelectAfterDate} />
+        </div>
+
+        <div>
+          <CustomHourPicker />
         </div>
         
     </main>
