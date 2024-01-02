@@ -1,23 +1,23 @@
 import React, { Fragment, useState } from 'react';
-import IconChevronDown from './icons/IconChevronDown';
+import IconChevronDown from '../icons/IconChevronDown';
 
 type datePickerProps = {
     canSelectBeforeDate: boolean;
     canSelectAfterDate: boolean;
 
 }
-function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePickerProps) {
+function CustomDatePicker({ canSelectBeforeDate, canSelectAfterDate }: datePickerProps) {
     const [openDatePickerStart, setOpenDatePickerStart] = useState(false)
     const [selectedDate, setSelectedDate] = useState('');
 
     const arrayOfWeek = [
-        { week: 'Sun' },
-        { week: 'Mon' },
-        { week: 'Tue' },
-        { week: 'Wed' },
-        { week: 'Thu' },
-        { week: 'Fri' },
-        { week: 'Sat' },
+        { week: 'Dim' },
+        { week: 'Lun' },
+        { week: 'Mar' },
+        { week: 'Mer' },
+        { week: 'Jeu' },
+        { week: 'Ven' },
+        { week: 'Sam' },
     ];
 
 
@@ -123,7 +123,7 @@ function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePick
     return (
         <div className='flex flex-col gap-2 relative'>
 
-            <div className='flex justify-between items-center  border-y rounded-lg border-[#E4E4E7] border relative '
+            <div className='flex justify-between items-center  border-y rounded-lg border-[#E4E4E7] bg-white border relative '
             >
                 <div className='flex justify-between w-full items-center p-1'>
                     <div className='flex items-center w-full'>
@@ -259,4 +259,4 @@ function DatePickerMessage({ canSelectBeforeDate, canSelectAfterDate }: datePick
     );
 }
 
-export default DatePickerMessage;
+export default CustomDatePicker;
